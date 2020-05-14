@@ -73,9 +73,9 @@ class ItemDAOTest {
         itemDAO.save(item1);
         User user = new User("test_login1", "test_pass1", "test_fn", "test_ln");
         userDAO.save(user);
-        Cart cart = new Cart(0, user.getId(), current_time);
+        Cart cart = new Cart(0, user, current_time);
         cartDAO.save(cart);
-        Order order = new Order(item1.getId(), cart.getId(), 5);
+        Order order = new Order(item1, cart, 5);
         orderDAO.save(order);
         List<Item> list = itemDAO.getAllByCart(cart);
         assertNotNull(list);

@@ -15,10 +15,10 @@ import javax.persistence.*;
 @Table(name = "orders")
 public class Order extends BaseEntity {
 
-    @Column(name = "item_id")
-    private Integer itemId;
-    @Column(name = "cart_id")
-    private Integer cartId;
+    @ManyToOne(targetEntity = Item.class)
+    private Item item;
+    @ManyToOne(targetEntity = Cart.class)
+    private Cart cart;
     private Integer amount;
 
 }

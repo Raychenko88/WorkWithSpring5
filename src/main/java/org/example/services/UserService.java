@@ -11,10 +11,14 @@ import java.util.List;
 @Service
 public class UserService {
     @Autowired
-    private UserDAO userDAO;
+    protected UserDAO userDAO;
 
     public User create(User user){
-        return userDAO.save(user);
+        if (userDAO.findById(user.getId()) == null){
+            return userDAO.save(user);
+        }else {
+            return null;
+        }
     }
 
     public User getAuthUser(String login, String password){
@@ -26,5 +30,32 @@ public class UserService {
         return null;
     }
 
+    public  List<User> getByLogin (String login){
+        return userDAO.getByLogin(login);
+    }
 
+    public List<User> getAll(){
+        return userDAO.getAll();
+    }
+
+    public List<User> findByLogAndPass(String login, String password){
+        return userDAO.findByLogAndPass(login,password);
+    }
+
+    public User update(User user){
+       if (userDAO.findById(user.getId()) != null){
+           return userDAO.update(user);
+       }
+       return null;
+    }
+
+    public User findById(User user){
+        return userDAO.findById(user.getId());
+    }
+
+    public void delete(User user){
+        if (userDAO.findById(user.getId()) != null){
+            userDAO.delete(user);
+        }
+    }
 }

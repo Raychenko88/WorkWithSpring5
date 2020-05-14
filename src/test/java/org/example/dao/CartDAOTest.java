@@ -58,7 +58,7 @@ class CartDAOTest {
         userDAO.save(user);
         User userFromDB = userDAO.findById(user.getId());
 
-        Cart cart = new Cart(0, userFromDB.getId(), currentTime);
+        Cart cart = new Cart(0, userFromDB, currentTime);
         cartDAO.save(cart);
         cart.setClosed(1);
         cartDAO.update(cart);
@@ -87,9 +87,9 @@ class CartDAOTest {
         Long timeOk = currentTime - 50;
         Long timeNotOk = currentTime - 200;
 
-        Cart cartOk = new Cart(0, userOk.getId(), timeOk);
-        Cart cartNotOk1 = new Cart(0, userOk.getId(), timeNotOk);
-        Cart cartNotOk2 = new Cart(0, userNotOk.getId(), timeOk);
+        Cart cartOk = new Cart(0, userOk, timeOk);
+        Cart cartNotOk1 = new Cart(0, userOk, timeNotOk);
+        Cart cartNotOk2 = new Cart(0, userNotOk, timeOk);
 
         cartDAO.save(cartOk);
         cartDAO.save(cartNotOk1);
@@ -135,9 +135,9 @@ class CartDAOTest {
         assertNotNull(userOk.getId());
         assertNotNull(userNotOk.getId());
 
-        Cart cartOk = new Cart(0, userOk.getId(), currentTime);
-        Cart cartNotOk1 = new Cart(1, userOk.getId(), currentTime);
-        Cart cartNotOk2 = new Cart(0, userNotOk.getId(), currentTime);
+        Cart cartOk = new Cart(0, userOk, currentTime);
+        Cart cartNotOk1 = new Cart(1, userOk, currentTime);
+        Cart cartNotOk2 = new Cart(0, userNotOk, currentTime);
 
         cartDAO.save(cartOk);
         cartDAO.save(cartNotOk1);
@@ -151,8 +151,8 @@ class CartDAOTest {
 
         Cart targetCart = cartDAO.getByUserAndOpenStatus(userOk);
         assertNotNull(targetCart);
-        assertNotNull(targetCart.getUserId());
-        assertEquals(targetCart.getUserId(), userOk.getId());
+        assertNotNull(targetCart.getUser().getId());
+        assertEquals(targetCart.getUser().getId(), userOk.getId());
         assertEquals(targetCart.getId(), cartOk.getId());
     }
 
@@ -163,7 +163,7 @@ class CartDAOTest {
         users.add(user);
         assertNotNull(user.getId());
 
-        Cart cart = new Cart(0, user.getId(), currentTime);
+        Cart cart = new Cart(0, user, currentTime);
         cartDAO.save(cart);
         carts.add(cart);
         assertNotNull(cart.getId());

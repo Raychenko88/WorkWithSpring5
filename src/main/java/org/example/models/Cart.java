@@ -16,8 +16,8 @@ import javax.persistence.*;
 public class Cart extends BaseEntity {
 
     private Integer closed;
-    @Column(name = "user_id")
-    private Integer userId;
+    @ManyToOne(targetEntity = User.class)
+    private User user;
     @Column(name = "creation_time")
     private Long creationTime;
 

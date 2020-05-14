@@ -2,8 +2,6 @@ package org.example;
 
 
 import org.example.dao.UserDAO;
-import org.example.factory.HibernateSessionFactory;
-import org.example.factory.impl.H2Factory;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
 public class App

@@ -60,13 +60,13 @@ class OrderDAOTest {
         userDAO.save(user);
         User userFromDB = userDAO.findById(user.getId());
 
-        Cart cart = new Cart(0, userFromDB.getId(), currentTime);
+        Cart cart = new Cart(0, userFromDB, currentTime);
         cartDAO.save(cart);
 
         Item item = new Item("test_name", "t_code", 123, 1);
         itemDAO.save(item);
 
-        Order order = new Order(item.getId(), cart.getId(), 10);
+        Order order = new Order(item, cart, 10);
         orderDAO.save(order);
         order.setAmount(15);
         orderDAO.update(order);
@@ -87,8 +87,8 @@ class OrderDAOTest {
         users.add(user);
         assertNotNull(user.getId());
 
-        Cart cart = new Cart(0, user.getId(), currentTime);
-        Cart cartNotOk = new Cart(0, user.getId(), currentTime);
+        Cart cart = new Cart(0, user, currentTime);
+        Cart cartNotOk = new Cart(0, user, currentTime);
         cartDAO.save(cart);
         cartDAO.save(cartNotOk);
         carts.add(cart);
@@ -101,9 +101,9 @@ class OrderDAOTest {
         items.add(item);
         assertNotNull(item.getId());
 
-        Order order1 = new Order(item.getId(), cart.getId(), 50);
-        Order order2 = new Order(item.getId(), cart.getId(), 50);
-        Order order3 = new Order(item.getId(), cartNotOk.getId(), 50);
+        Order order1 = new Order(item, cart, 50);
+        Order order2 = new Order(item, cart, 50);
+        Order order3 = new Order(item, cartNotOk, 50);
         orderDAO.save(order1);
         orderDAO.save(order2);
         orderDAO.save(order3);
@@ -134,7 +134,7 @@ class OrderDAOTest {
         users.add(user);
         assertNotNull(user.getId());
 
-        Cart cart = new Cart(0, user.getId(), currentTime);
+        Cart cart = new Cart(0, user, currentTime);
         cartDAO.save(cart);
         carts.add(cart);
         assertNotNull(cart.getId());
@@ -144,7 +144,7 @@ class OrderDAOTest {
         items.add(item);
         assertNotNull(item.getId());
 
-        Order order = new Order(item.getId(), cart.getId(), 50);
+        Order order = new Order(item, cart, 50);
         orderDAO.save(order);
         orders.add(order);
         assertNotNull(order.getId());
@@ -164,7 +164,7 @@ class OrderDAOTest {
         users.add(user);
         assertNotNull(user.getId());
 
-        Cart cart = new Cart(0, user.getId(), currentTime);
+        Cart cart = new Cart(0, user, currentTime);
         cartDAO.save(cart);
         carts.add(cart);
         assertNotNull(cart.getId());
@@ -174,14 +174,14 @@ class OrderDAOTest {
         items.add(item);
         assertNotNull(item.getId());
 
-        Order order = new Order(item.getId(), cart.getId(), 50);
+        Order order = new Order(item, cart, 50);
         orderDAO.save(order);
         orders.add(order);
         assertNotNull(order.getId());
 
         Order targetOrder = orderDAO.findOrderByItem(item.getId());
         assertNotNull(targetOrder);
-        assertEquals(item.getId(), targetOrder.getItemId());
+        assertEquals(item.getId(), targetOrder.getItem().getId());
     }
 
     @Test
