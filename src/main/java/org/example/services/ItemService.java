@@ -11,10 +11,15 @@ import java.util.List;
 @Service
 public class ItemService {
     @Autowired
-    private ItemDAO itemDAO;
+    protected ItemDAO itemDAO;
 
     public Item create(Item item) {
-        if (itemDAO.findById(item.getId()) == null){
+        // TODO изменить на item code
+//        if (itemDAO.findByItemCode(item.getCode()) == null){
+//            return itemDAO.save(item);
+//        }
+        List<Item> list = itemDAO.findByItemCode(item.getCode());
+        if (list.isEmpty()){
             return itemDAO.save(item);
         }
         return null;

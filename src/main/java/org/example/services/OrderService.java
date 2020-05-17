@@ -12,9 +12,9 @@ import java.util.List;
 
 public class OrderService {
     @Autowired
-    private OrderDAO orderDAO;
+    protected OrderDAO orderDAO;
     @Autowired
-    private CartDAO cartDAO;
+    protected CartDAO cartDAO;
 
     public Order creat(Order order){
         if (orderDAO.findById(order.getId()) == null){

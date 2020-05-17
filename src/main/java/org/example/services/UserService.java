@@ -14,11 +14,11 @@ public class UserService {
     protected UserDAO userDAO;
 
     public User create(User user){
-        if (userDAO.findById(user.getId()) == null){
+        List<User> list = userDAO.getByLogin(user.getLogin());
+        if (list.isEmpty()){
             return userDAO.save(user);
-        }else {
-            return null;
         }
+        return null;
     }
 
     public User getAuthUser(String login, String password){

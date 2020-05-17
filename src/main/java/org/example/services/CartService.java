@@ -13,9 +13,9 @@ import java.util.List;
 @Service
 public class CartService {
     @Autowired
-    private CartDAO cartDAO;
+    protected CartDAO cartDAO;
     @Autowired
-    private UserDAO userDAO;
+    protected UserDAO userDAO;
 
     public Cart creat(Cart cart){
         if (cartDAO.findById(cart.getId()) == null){
